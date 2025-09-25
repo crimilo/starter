@@ -29,6 +29,7 @@ return {
             config.defaults.file_ignore_patterns = {
                 "node_modules",
                 "build",
+                "%third_party",
                 "%.vscode",
                 "%.git",
                 "%.cache",
@@ -43,5 +44,13 @@ return {
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
         ft = { "markdown" },
         build = function() vim.fn["mkdp#util#install"]() end,
+    },
+    {
+      "lervag/vimtex",
+      lazy = false,     -- we don't want to lazy load VimTeX
+      -- tag = "v2.15", -- uncomment to pin to a specific release
+      init = function()
+        local config = require("configs/vimtex")
+      end
     },
 }
