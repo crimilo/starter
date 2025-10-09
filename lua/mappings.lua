@@ -20,9 +20,27 @@ end
 
 map('i', '<Tab>', '<Tab>', { noremap = true, silent = true })
 
-map('n', '<Space>k', ':lua vim.lsp.buf.format()<CR>', {
-    noremap = true, silent = true
-})
+map("n", "<Space>k", function()
+    local prettier_fts = {
+      html = true, css = true, scss = true, less = true,
+      javascript = true, javascriptreact = true,
+      typescript = true, typescriptreact = true,
+      json = true, yaml = true, markdown = true, graphql = true,
+    }
+    local ft = vim.bo.filetype
+
+    if prettier_fts[ft] then
+        vim.notify("Formatting with Prettier (Conform)", vim.log.levels.INFO)
+        require("conform").format({ lsp_fallback = false })
+    else
+        vim.notify("Formatting with LSP (" .. ft .. ")", vim.log.levels.INFO)
+        vim.lsp.buf.format({ async = false })
+    end
+end, { noremap = true, silent = true, desc = "Format (Prettier or LSP)" })
+
+-- map('n', '<Space>k', ':lua vim.lsp.buf.format()<CR>', {
+--     noremap = true, silent = true
+-- })
 
 map('n', '<Space>ca', ':lua vim.lsp.buf.code_action()<CR>', {
     noremap = true, silent = true

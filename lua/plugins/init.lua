@@ -1,8 +1,16 @@
 return {
+    -- {
+    --     "stevearc/conform.nvim",
+    --     -- event = 'BufWritePre', -- uncomment for format on save
+    --     opts = require "configs.conform",
+    -- },
     {
-        "stevearc/conform.nvim",
-        -- event = 'BufWritePre', -- uncomment for format on save
-        opts = require "configs.conform",
+          "stevearc/conform.nvim",
+          -- event = { "BufReadPre", "BufNewFile" },         -- load when you open/edit files
+          cmd = { "ConformInfo" },                        -- also load when you run :ConformInfo
+          config = function()
+            require("conform").setup(require("configs.conform"))
+          end,
     },
     {
         "neovim/nvim-lspconfig",
