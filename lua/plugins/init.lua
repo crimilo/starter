@@ -34,15 +34,12 @@ return {
             local config = require("nvchad.configs.telescope")
 
             config.defaults.file_ignore_patterns = {
-                "%.git/",
-                "%.o",
-                "%.a",
-                "node_modules/",
-                "build/",
-                "%.vscode",
-                "%.git",
-                "%.cache",
-                "%.idea",
+                "node_modules",
+                "build",
+                ".git",
+                ".vscode",
+                ".cache",
+                ".idea",
             }
 
             return config
